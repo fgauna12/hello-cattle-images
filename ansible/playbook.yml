@@ -1,0 +1,26 @@
+---
+- name: Install Chia
+  hosts: all
+  become: yes
+  tasks:
+    - name: Update all packages to the latest version
+      apt:
+        upgrade: dist
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+    - name: Download Git
+      git:
+        repo: https://github.com/Chia-Network/chia-blockchain.git
+        dest: /home/vagrant/chia-blockchain
+        version: latest
+        recursive: yes
+    - name: Install chia
+      shell: sh install.sh
+      args:
+        chdir: /home/vagrant/chia-blockchain/
+    - name: Activate Chia
+      shell: . ./activate
+      args:
+        chdir: /home/vagrant/chia-blockchain/

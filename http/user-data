@@ -1,0 +1,30 @@
+#cloud-config
+autoinstall:
+  version: 1
+  locale: en_US
+  keyboard:
+    layout: en
+    variant: us
+  network:
+    network:
+      version: 2
+      ethernets:
+        ens192:
+          dhcp4: true
+  storage:
+    layout:
+      name: lvm
+  identity:
+    hostname: ubuntu-packer
+    username: ubuntu
+    password: $6$E.TIFVEhcydTvzDt$3VyEcGFnq9dibs1708D6HQHCUqRKQuWiMemxIahY4y1.Cxp.cIkX5AAznSm0COQUbYg4ROG3q0QpwSFxJOKQz0
+  ssh:
+    install-server: yes
+    allow-pw: true
+    authorized-keys: 
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCqTOl9h1VOfLpmnIn9M1O4dB7DdQkgzTAl5diktYokWNttTCQ2Ojo5ULROh8kUyS22xCD1xm/L8HSluVueDcciadEumF1jNLbYZqG6Yi3o/21U5Le/QNE0B0mW8zdOt1+tNl8GE6DWrcoR3uCoOJN9Nr9tNNa9Uz89Es/hQ90esbVEkUVg056m5Hkwu9+E4b+EuZBFpAkWtVv+3fifdKqWqFxoI2e2tGaQuUDjGUt0zOkKtBv1g+hC9d7rgQnT0Z7xXCQ2iLVs51XqrcvwG8K4RCvQVAlQyv9kg5fV085T5drwZJd0oq4fS6VSDwB21WXlAhuJESHzvZ6Uz0KQ2McH azuread\facundogauna@DESKTOP-5OOFQ7C
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMGXKv0d1LTzrF0Qkr93E36viE9BIvAwnKD9ApFxfqigzmNC3uV3LepcdCK/5+/8KB8jljlLMXpZHhNeMuFs2NBCSOOjrjhg4fgKTH831yphOye13Wx2Ien7Bz2a8qYHhLav6Dor6WGh87fq7LuuUkiI4JnyanLxlbNdIUOyYh6VO3NTpPMcpjEQgr+wyBymGS71pnPCfKpgURlm4IyRUSEyO6SRVEQ5cOFgnoOSU01/ydKUPBlh/IaoGR799eP+Nwc3KWy6+Y1zIqnEgnw4Vu4wCu76J9iFpcPpH+zZnLI1hbfNNUnTqgKPqa/ICgNAcOMo6+LXhahpRZ0AQip3ev6W6+OG9xX8gGNICaNnDghS8M+gGPWooK7luCQ4s9EFU66O72n9YLVMgXZSXnL9d22WNKqRY304AKTWzUd47W1OEbQdl9nYO2pnQDJPa1dZgq59KtG6mZi3XCcY0PhIuYIkfBsPl/ru1+22hrgZyfS/Kxrjh0/oH3+yah02Ishec= fgauna@DESKTOP-5OOFQ7C
+  user-data:
+    disable_root: false
+  late-commands:
+    - echo 'ubuntu ALL=(ALL) NOPASSWD:ALL' > /target/etc/sudoers.d/ubuntu

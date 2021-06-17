@@ -1,0 +1,3 @@
+packer_cache/
+vcenter.*.pkrvars.hcl
+output_vsphere/
