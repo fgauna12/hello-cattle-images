@@ -178,13 +178,6 @@ build {
   ]
 
   provisioner "shell" {
-    only            = ["sources.vsphere-iso.ubuntu"]
-    inline = [
-      "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done"
-    ]
-  }
-
-  provisioner "shell" {
     inline = [
       "sudo apt-get update",
       "sudo apt install software-properties-common -y",
