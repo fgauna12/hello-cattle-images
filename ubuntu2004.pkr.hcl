@@ -146,13 +146,9 @@ variable "storage_account" {
 source "azure-arm" "ubuntu" {
   client_id           = var.client_id
   client_secret       = var.client_secret
-  # resource_group_name = var.resource_group_name
-  # storage_account     = var.storage_account
+  
   subscription_id     = var.subscription_id
   tenant_id           = var.tenant_id
-
-  # capture_container_name = "images"
-  # capture_name_prefix    = "packer"
 
   managed_image_name = "chia-{{isotime \"200601020304\"}}"
   managed_image_resource_group_name = var.resource_group_name
