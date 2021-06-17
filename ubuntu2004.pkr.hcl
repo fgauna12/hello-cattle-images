@@ -60,65 +60,6 @@ variable "network_name" {
   type = string
 }
 
-source "vsphere-iso" "ubuntu" {
-  iso_paths    = [var.iso_path]
-  iso_checksum = var.iso_checksum
-
-  //connection
-  vcenter_server      = var.vcenter_server
-  host                = var.esxi_host
-  username            = var.vcenter_username
-  password            = var.vcenter_password
-  insecure_connection = true
-
-  convert_to_template = false
-
-  export {
-    force            = true
-    output_directory = "./output_vsphere"
-  }
-
-  vm_name              = var.vm_name
-  guest_os_type        = var.guest_os_type
-  CPUs                 = 2
-  RAM                  = 2048
-  disk_controller_type = ["pvscsi"]
-  usb_controller       = ["xhci"] //usb 3.0
-  notes                = "Created by Packer. SSH user is ${var.ssh_username}"
-  datastore            = var.datastore
-
-  network_adapters {
-    network      = var.network_name
-    network_card = "vmxnet3"
-  }
-
-  storage {
-    disk_size             = 20000
-    disk_thin_provisioned = true
-  }
-
-  ssh_timeout            = "20m"
-  ssh_handshake_attempts = 100
-
-  ssh_username = var.ssh_username
-  ssh_password = var.ssh_password
-
-  boot_order = "disk,cdrom"
-
-  floppy_files = [
-    "./http/meta-data",
-    "./http/user-data"
-  ]
-  floppy_label = "cidata"
-
-  boot_wait = "2s"
-  boot_command = [
-    var.boot_command
-  ]
-
-  shutdown_command = "sudo -S shutdown -P now"
-}
-
 variable "client_id" {
   type = string
 }
@@ -146,7 +87,7 @@ variable "storage_account" {
 source "azure-arm" "ubuntu" {
   client_id           = var.client_id
   client_secret       = var.client_secret
-  
+
   subscription_id     = var.subscription_id
   tenant_id           = var.tenant_id
 
@@ -169,7 +110,6 @@ source "azure-arm" "ubuntu" {
 
 build {
   sources = [
-    #"sources.vsphere-iso.ubuntu",
     "sources.azure-arm.ubuntu"
   ]
 
