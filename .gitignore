@@ -1,3 +1,6 @@
 packer_cache/
 vcenter.*.pkrvars.hcl
 output_vsphere/
+vsphere.ubuntu.auto.pkrvars.hcl
+ubuntu2004.azure.auto.pkrvars.hcl
+ubuntu2004.vsphere.auto.pkrvars.hcl

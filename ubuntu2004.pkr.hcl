@@ -119,12 +119,66 @@ source "vsphere-iso" "ubuntu" {
   shutdown_command = "sudo -S shutdown -P now"
 }
 
+variable "client_id" {
+  type = string
+}
+
+variable "client_secret" {
+  type = string
+}
+
+variable "resource_group_name" {
+  type = string
+}
+
+variable "subscription_id" {
+  type = string
+}
+
+variable "tenant_id" {
+  type = string
+}
+
+variable "storage_account" {
+  type = string
+}
+
+source "azure-arm" "ubuntu" {
+  client_id           = var.client_id
+  client_secret       = var.client_secret
+  # resource_group_name = var.resource_group_name
+  # storage_account     = var.storage_account
+  subscription_id     = var.subscription_id
+  tenant_id           = var.tenant_id
+
+  # capture_container_name = "images"
+  # capture_name_prefix    = "packer"
+
+  managed_image_name = "chia-{{isotime \"200601020304\"}}"
+  managed_image_resource_group_name = var.resource_group_name
+
+  os_type         = "Linux"
+  image_publisher = "Canonical"
+  image_offer     = "0001-com-ubuntu-server-focal"
+  image_sku       = "20_04-lts"
+
+  azure_tags = {
+    customer = "internal"
+    owner    = "facundo@boxboat.com"
+  }
+
+  location = "East US"
+  vm_size  = "Standard_DS2_v2"
+}
+
 build {
   sources = [
-    "sources.vsphere-iso.ubuntu"
+    #"sources.vsphere-iso.ubuntu",
+    "sources.azure-arm.ubuntu"
   ]
 
   provisioner "shell" {
+    only            = ["sources.vsphere-iso.ubuntu"]
     inline = [
       "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done"
     ]
@@ -141,5 +195,15 @@ build {
 
   provisioner "ansible-local" {
     playbook_file = "./ansible/playbook.yml"
+  }
+
+  # de-provision process, should be at the end, only for azure
+  provisioner "shell" {
+    only            = ["sources.azure-arm.ubuntu"]
+    execute_command = "chmod +x {{ .Path }}; {{ .Vars }} sudo -E sh '{{ .Path }}'"
+    inline = [
+      "/usr/sbin/waagent -force -deprovision+user && export HISTSIZE=0 && sync"
+    ]
+    inline_shebang = "/bin/sh -x"
   }
 }
