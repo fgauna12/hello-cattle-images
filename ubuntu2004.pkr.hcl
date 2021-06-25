@@ -52,8 +52,7 @@ variable "shared_image_gallery_name" {
 }
 
 locals {
-  stamp = "${formatdate("DDMMMYYYYhhmm", timestamp)}"
-  image_name = "chia-${local.stamp}"
+  image_name = "chia-${formatdate("DDMMMYYYYhhmm", timestamp())}"
 }
 
 source "azure-arm" "ubuntu" {
