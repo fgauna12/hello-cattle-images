@@ -84,14 +84,27 @@ variable "storage_account" {
   type = string
 }
 
+variable "shared_image_gallery_resource_group_name" {
+  type = string
+}
+
+variable "shared_image_gallery_name" {
+  type = string
+}
+
+locals {
+  timestamp = "${legacy_isotime("200601020304")}"
+  image_name = "chia-${local.timestamp}"
+}
+
 source "azure-arm" "ubuntu" {
-  client_id           = var.client_id
-  client_secret       = var.client_secret
+  client_id     = var.client_id
+  client_secret = var.client_secret
 
-  subscription_id     = var.subscription_id
-  tenant_id           = var.tenant_id
+  subscription_id = var.subscription_id
+  tenant_id       = var.tenant_id
 
-  managed_image_name = "chia-{{isotime \"200601020304\"}}"
+  managed_image_name                = local.image_name
   managed_image_resource_group_name = var.resource_group_name
 
   os_type         = "Linux"
@@ -106,6 +119,15 @@ source "azure-arm" "ubuntu" {
 
   location = "East US"
   vm_size  = "Standard_DS2_v2"
+
+  shared_image_gallery_destination {
+    subscription         = var.subscription_id
+    resource_group       = var.shared_image_gallery_resource_group_name
+    gallery_name         = var.shared_image_gallery_name
+    image_name           = "chia"
+    image_version        = "1.0.0"
+    replication_regions = ["eastus"]
+  }
 }
 
 build {
