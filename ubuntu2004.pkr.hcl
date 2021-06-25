@@ -1,13 +1,3 @@
-variable "vcenter_server" {
-  type    = string
-  default = "192.168.1.183"
-}
-
-variable "esxi_host" {
-  type    = string
-  default = "esxi-host"
-}
-
 variable "vm_name" {
   type    = string
   default = "ubuntu-packer"
@@ -22,50 +12,19 @@ variable boot_command {
   <enter>
   EOF
 }
-
-variable "iso_path" {
-  type = string
-}
-
-variable "iso_checksum" {
-  type = string
-}
-
-variable "vcenter_username" {
-  type = string
-}
-
-variable "vcenter_password" {
-  type = string
-}
-
-variable "ssh_username" {
-  type = string
-}
-
-variable "ssh_password" {
-  type = string
-}
-
-variable "datastore" {
-  type = string
-}
-
 variable "guest_os_type" {
   type    = string
   default = "ubuntu64Guest"
 }
 
-variable "network_name" {
-  type = string
-}
-
 variable "client_id" {
   type = string
+  sensitive = true
 }
 
 variable "client_secret" {
   type = string
+  sensitive = true
 }
 
 variable "resource_group_name" {
