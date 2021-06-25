@@ -52,8 +52,8 @@ variable "shared_image_gallery_name" {
 }
 
 locals {
-  timestamp = "${legacy_isotime("200601020304")}"
-  image_name = "chia-${local.timestamp}"
+  stamp = "${formatdate("DDMMMYYYYhhmm", timestamp)}"
+  image_name = "chia-${local.stamp}"
 }
 
 source "azure-arm" "ubuntu" {

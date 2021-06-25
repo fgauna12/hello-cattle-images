@@ -37,7 +37,6 @@ jobs:
         with:
           command: validate
           arguments: -syntax-only
-          target: .
 
       # build artifact
       - name: Build Artifact
