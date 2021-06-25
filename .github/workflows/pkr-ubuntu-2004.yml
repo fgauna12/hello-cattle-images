@@ -45,9 +45,8 @@ jobs:
         with:
           command: build
           arguments: "-color=false -on-error=abort"
-          target: .
         env:
-          PACKER_LOG: 1
+          PACKER_LOG: 0
           PKR_VAR_client_id: ${{ secrets.PKR_VAR_CLIENT_ID }} 
           PKR_VAR_client_secret: ${{ secrets.PKR_VAR_CLIENT_SECRET }} 
           PKR_VAR_subscription_id: ${{ secrets.PKR_VAR_SUBSCRIPTION_ID }} 
