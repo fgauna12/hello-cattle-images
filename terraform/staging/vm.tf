@@ -9,7 +9,7 @@ module "chia_farmer" {
   prefix = "chia"
   subnet_id = module.network.vnet_subnets[1]
   location = "eastus"
-  image_version = "1.0.1"
+  image_version = "1.0.2"
   image_name = "chia"
   shared_image_gallery_name = "BoxBoat"
 
