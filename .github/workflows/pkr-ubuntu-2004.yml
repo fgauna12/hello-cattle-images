@@ -38,6 +38,7 @@ jobs:
       #     command: fix
 
       # validate templates
+      - run: echo $PWD
       - name: Validate Template
         uses: hashicorp/packer-github-actions@master
         with:
