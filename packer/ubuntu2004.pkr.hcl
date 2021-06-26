@@ -83,7 +83,7 @@ source "azure-arm" "ubuntu" {
     resource_group       = var.shared_image_gallery_resource_group_name
     gallery_name         = var.shared_image_gallery_name
     image_name           = "chia"
-    image_version        = "1.0.1"
+    image_version        = "1.0.2"
     replication_regions = ["eastus"]
   }
 }
