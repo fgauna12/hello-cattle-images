@@ -13,6 +13,10 @@ jobs:
     
     environment: staging
 
+    env:
+      TF_VAR_tenant_id: ${{ secrets.TF_VAR_TENANT_ID }}
+      TF_VAR_environment_name: "staging"
+
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
