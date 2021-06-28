@@ -40,7 +40,7 @@ resource "azurerm_linux_virtual_machine" "example" {
 
   admin_ssh_key {
     username   = local.admin_user
-    public_key = data.azurerm_ssh_public_key.ssh_public_key
+    public_key = data.azurerm_ssh_public_key.ssh_public_key.public_key
   }
 
   os_disk {
