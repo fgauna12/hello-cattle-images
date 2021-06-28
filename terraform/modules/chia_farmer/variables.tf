@@ -11,21 +11,21 @@ variable "prefix" {
 }
 
 variable "subnet_id" {
-    type = string
+  type = string
 }
 
 variable "location" {
-    type = string
+  type = string
 }
 
 variable "image_version" {
-    type = string
+  type = string
 }
 
 variable "image_name" {
-    type = string
+  type = string
 }
 
 variable "shared_image_gallery_name" {
-    type = string
+  type = string
 }

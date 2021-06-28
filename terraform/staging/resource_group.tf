@@ -4,6 +4,6 @@ resource "azurerm_resource_group" "resource_group" {
 
   tags = {
     customer = "Internal"
-    owner = "facundo@boxboat.com"
+    owner    = "facundo@boxboat.com"
   }
 }
