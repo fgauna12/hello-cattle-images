@@ -29,3 +29,11 @@ variable "image_name" {
 variable "shared_image_gallery_name" {
   type = string
 }
+
+variable "ssh_public_key_name" {
+  type = string
+}
+
+variable "ssh_public_key_resource_group" {
+  type = string
+}

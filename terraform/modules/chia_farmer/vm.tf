@@ -9,6 +9,11 @@ data "azurerm_shared_image_version" "shared_image_gallery_version" {
   resource_group_name = var.shared_image_gallery_resource_group_name
 }
 
+data "azurerm_ssh_public_key" "ssh_public_key" {
+  name                = var.ssh_public_key_name
+  resource_group_name = var.ssh_public_key_resource_group
+}
+
 resource "azurerm_network_interface" "nic" {
   name                = "${var.prefix}-nic"
   location            = var.location
@@ -35,7 +40,7 @@ resource "azurerm_linux_virtual_machine" "example" {
 
   admin_ssh_key {
     username   = local.admin_user
-    public_key = file("~/.ssh/id_rsa.pub")
+    public_key = data.ssh_public_key.public_key
   }
 
   os_disk {
