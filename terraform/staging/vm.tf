@@ -12,6 +12,8 @@ module "chia_farmer" {
   image_version                            = "1.0.2"
   image_name                               = "chia"
   shared_image_gallery_name                = "BoxBoat"
+  ssh_public_key_name                      = "ssh-facundo-windows"
+  ssh_public_key_resource_group            = "rg-facundo-001"
 
   depends_on = [
     module.network
